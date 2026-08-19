@@ -27,7 +27,7 @@ If your drive has a built-in LED it will operate in DS mode (same as it did orig
 
 The Python code provided for the Arduino is written for compatibility with most ST-412/506 consumer disk drives 10mb and greater. The code is limited to about 280 cylinders in the main loop which will prevent mechanical seek overrun on most drives. This number can be adjusted to affect the character of your drive. A lower number will result in a a more active drive with shorter, more frenetic seek bursts. A higher number will allow for more frequent and long seeks, which operate the head positioner at slightly reduced speed, similar to buffered seeks on very early drives. Adjust to your preference.
 
-Note that some very early full height units may require modification of the seek timing spec. Some of these drives (and presumably 8" and larger form factor drives compatible with the ST-412 or 506 interface) with larger or heavier head actuator assemblies or sluggish steppers may require more time to settle between tracks. On these drives, a timing spec that is too fast will usually result in head actuator groaning with either no movement or erratic movement. For example, a 3MB full height Shugart 604 requires an additional millisecond to correctly position the servo on fast seeks. In most cases, and unless you're working with a much older or more obscure drive, modification of the code will probably not be necessary beyond the max cylinder step specification. This can be adjusted by changing delay(0) to delay(1) in the seek section of the code. 
+Note that some very early full height units may require modification of the seek timing spec. Some of these drives (and presumably 8" and larger form factor drives compatible with the ST-412 or 506 interface) with larger or heavier head actuator assemblies or sluggish steppers may require more time to settle between tracks. On these drives, a timing spec that is too fast will usually result in head actuator groaning with either no movement or erratic movement. For example, a full height Shugart 604 requires an additional millisecond to correctly position the servo on fast seeks. In most cases, and unless you're working with a much older or more obscure drive, modification of the code will probably not be necessary beyond timing specification. This can be adjusted by changing delay(0) to delay(1) in the seek section of the code. 
 
 The code will periodlcally recalibrate the drive to track 0 by issuing an intentional cylinder seek overrun, effectively returning the servo to it's mechanical stop. With some drives (Miniscribe deserves honorable mention here) this results in a loud buzzing or growl but will not physically damage the drive.
 
@@ -44,11 +44,13 @@ LED Output: [+5V | HD LED] Output to system front panel (optional)
 
 J1 / Winchester: 34 Pin PCB mount style card edge socket
 
-The Arduino can be soldered to either side of the board as long as pin 1 orientation is observed. The only specialty item required is a PCB-mount card edge socket.
+The Arduino can be soldered to either side of the board as long as pin oorientation orientation is observed. The only specialty item required is a PCB-mount card edge socket. 
+
+The Chester PCB will accomodate both the Arduino Micro and Nano boards available at the date of publication, though the Micro is recommended. When installing, ensure that the +5V pin (not Vin) aligns with the trace leading to pin 1 of the J2 power header and USB port is oriented to the side indicated. The code should run on any board variant so long as +5v, GND, and Digital I/O pads align.
 
 Actual 34 pin PCB mount card edge sockets have become difficult to source. As of the date of this publication, there is a small supply of new old stock Texas Instruments p/n H421121-17 available through ebay.
 
-A more economical option is a more commonly available 36 pin socket, p/n S-36M-2.54-5. These will solder directly to the Chester PCB after clipping the two extra pins 35 and 36. The extra mechanical width should not be an issue as long as care is taken to get the connector pin 1 properly aligned when installed. 
+A more economical option is a more commonly available 36 pin socket, p/n S-36M-2.54-5. These will solder directly to the Chester PCB after clipping the two extra pins 35 and 36. The extra mechanical width should not be an issue as long as care is taken to get the connector pin 1 properly aligned when installed. It was found that a small 3/8" or so long piece sheath stripped off of the end of #16 or #18 stranded wire fits snugly into the card edge connector between the unused pins 35 and 36 to serve as a keyway if so desired.
 
 Right angle jumper pin headers with standard 2.54mm spacing are recommended for JP1 and optionally at J3 and J4 if LED pigtails are not to be hard wired.
 
